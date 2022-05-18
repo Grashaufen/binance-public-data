@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "name": "binancepublicdata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jannes Oltmanns",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "config-ini-parser": "^1.5.9",
+    "qs": "^6.10.3",
+    "ws": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.3"
+  }
+}
