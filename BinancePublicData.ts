@@ -10,11 +10,11 @@ class BinanceWebsocket extends EventEmitter {
     endpoint: string;
     port: number;
     ws: WebSocket;
-    subscribtions: Set<string>;
+    subscriptions: Set<string>;
 
     constructor(configParser: ConfigIniParser) {
         super();
-        this.subscribtions = new Set<string>();
+        this.subscriptions = new Set<string>();
         this.endpoint = configParser.get('websocket', 'endpoint');
         this.port = configParser.get('websocket', 'port');
         this.ws = new WebSocket(this.endpoint, {
@@ -61,12 +61,12 @@ class BinanceWebsocket extends EventEmitter {
 
     candlesticks(instrument: string, interval: KlineInterval, callback: (response: KlineResponse) => void) {
         let streamName = `${instrument.toLowerCase()}@kline_${interval}`;
-        let hasSubscribtion = this.subscribtions.has(streamName);
+        let hasSubscribtion = this.subscriptions.has(streamName);
 
         if(!hasSubscribtion) {
             this.ws.on('open', () => {
                 this.subscribe([streamName]);
-                this.subscribtions.add(streamName);
+                this.subscriptions.add(streamName);
             });
         }
 
@@ -93,7 +93,7 @@ class BinanceWebsocket extends EventEmitter {
     }
 
     close() {
-        this.unsubscribe(Array.from(this.subscribtions));
+        this.unsubscribe(Array.from(this.subscriptions));
         this.ws.close();
     }
 }
